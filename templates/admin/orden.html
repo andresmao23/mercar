@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+
+{% load static %}
+
+{% block title %}Panel de administración | Factura{% endblock %}
+
+{% block content %}
+    <h3>Datos del Pedido</h3>
+    {% if tamano == 1 %}
+        <div>
+            <div style="width:30%;float:left;">
+                <img src="{% static 'baner_web_tenderosenlinea.png' %}" height="100px"/>
+            </div>
+            <div style="width:35%;float:left;">
+                {% for pedido in clientes %}
+                    <!--h3 style="display:inline">ID del pedido: </h3><p style="display:inline">{{pedido}}</p> <br><br>
+                    <h3 style="display:inline">Fecha del pedido: </h3><p style="display:inline">{{pedido.created}}</p> <br><br-->
+                    <h4 style="display:inline">ID del pedido: </h4><p style="display:inline;font-size:12px;">{{pedido}}</p><br>
+                    <h4 style="display:inline">Fecha del pedido: </h4><p style="display:inline;font-size:12px;">{{pedido.created}}</p><br>
+                {% endfor %}
+                <h4 style="display:inline">Cédula: </h4><p style="display:inline;font-size:12px;">{{cliente.cedula}}</p><br>
+                <h4 style="display:inline">Cliente: </h4><p style="display:inline;font-size:12px;">{{cliente.name}} {{cliente.first_lastname}}</p><br>
+                <!--h3 style="display:inline">Cédula: </h3><p style="display:inline">{{cliente.cedula}}</p> <br><br>
+                <h3 style="display:inline">Cliente: </h3><p style="display:inline">{{cliente.name}} {{cliente.first_lastname}}</p> <br><br-->
+            </div>
+            <div style="width:35%;float:left;">
+                <h4 style="display:inline">Teléfono: </h4><p style="display:inline;font-size:12px;">{{cliente.phone}}</p><br>
+                <h4 style="display:inline">Establecimiento: </h4><p style="display:inline;font-size:12px;">{{establecimiento.name}}</p><br>
+                <h4 style="display:inline">Dirección: </h4><p style="display:inline;font-size:12px;">{{establecimiento.address}}</p><br>
+                <h4 style="display:inline">Barrio: </h4><p style="display:inline;font-size:12px;">{{establecimiento.neighborhood}}</p><br>
+
+                <!--h3 style="display:inline">Teléfono: </h3><p style="display:inline">{{cliente.phone}}</p> <br><br>
+                <h3 style="display:inline">Establecimiento: </h3><p style="display:inline">{{establecimiento.name}}</p> <br><br>
+                <h3 style="display:inline">Dirección: </h3><p style="display:inline">{{establecimiento.address}}</p> <br><br>
+                <h3 style="display:inline">Barrio: </h3><p style="display:inline">{{establecimiento.neighborhood}}</p> <br><br--> 
+            </div>
+        </div>
+        <hr>
+        <br>
+        <table style="width:100%;">
+            <thead>
+                <tr>
+                    <th style="font-size:12px; cellspacing:0;cellpadding:0;">Nombre del producto</th>
+                    <th style="font-size:12px;">Cantidad</th>
+                    <th style="font-size:12px;">Precio unitario</th>
+                    <th style="font-size:12px;">Subtotal</th>
+                </tr>
+            </thead>
+
+            <tbody>            
+                {% for orden in lista_orden %}
+                    <!--{{orden.product_id}}, {{orden.product_id}}, {{orden.order_id}}, {{orden.product_id__price}}-->
+                    <tr>
+                        <td style="font-size:12px;">{{orden.product_id__name}}</td>
+                        <td style="font-size:12px;">{{orden.quantity}}</td>
+                        <td style="font-size:12px;">${{orden.product_id__price}}</td>
+                        <td style="font-size:12px;">${% widthratio  orden.product_id__price 1 orden.quantity %}</td>
+                    </tr>
+                {% endfor %}  
+                <tr style="background:#B2BFBD;">
+                    <td></td>
+                    <td style="font-size:15px;"><i>¡Gracias por su compra!</i></td>   
+                    <td style="font-size:12px;"><b>Total</b></td>
+                    <td style="font-size:12px;"><b>${{total|floatformat:1}}</b></td>                    
+                </tr>        
+            </tbody>
+        </table>
+        <hr>
+        <h5 style="text-align:center;">TENDEROS EN LÍNEA &copy 2019- SERVIMOS DE VERDAD - NIT 76302712-6 - CONTACTO: 316 571 8892 / 302 424 6724</h5>
+    {% else %}
+        <h2>Debes seleccionar un solo pedido para saber su detalle.</h2>
+    {% endif %}
+    
+{% endblock %}

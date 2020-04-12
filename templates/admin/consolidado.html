@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Panel de administración | Consolidado{% endblock %}
+
+{% block content %}
+    <h1>Consolidado de productos</h1>
+    <!--{{lista_productos}}-->
+    <table style="width:100%;">
+        <thead>
+            <tr>
+                <th>Nombre del producto</th>
+                <th>Cantidad</th>
+                <th>Categoría</th>
+            </tr>
+        </thead>
+
+       <tbody>            
+            {% for producto in lista_productos %}
+                <tr>
+                    <td>{{producto.nombre}}</td>
+                    <td>{{producto.cantidad}}</td>
+                    <td>{{producto.categoria}}</td>
+                </tr>
+            {% endfor %}          
+        </tbody>
+      </table>
+{% endblock %}
