@@ -50,21 +50,22 @@ class ClientUserList(generics.ListCreateAPIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class Register(generics.CreateAPIView):
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         # Información para crear el usuario
-        username = request.GET.get('username')
-        email = request.GET.get('email')
-        password = request.GET.get('password')
-        print('************** ENTRANDO AL METODO ************')
-        print(username)
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        #print('************** ENTRANDO AL METODO ************')
+        #print(username)
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
         # Información para crear el cliete
-        cedula = request.GET.get('cedula')
-        name = request.GET.get('name')
-        first_lastname = request.GET.get('first_lastname')
-        second_lastname = request.GET.get('second_lastname')
-        phone = request.GET.get('phone')
+        cedula = request.POST.get('cedula')
+        name = request.POST.get('name')
+        first_lastname = request.POST.get('first_lastname')
+        second_lastname = request.POST.get('second_lastname')
+        phone = request.POST.get('phone')
         client = Client.objects.create(user=user, cedula=cedula, name=name, first_lastname=first_lastname, second_lastname=second_lastname, phone=phone)
         client.save()
+        # Información para crear el establecimiento
         return Response({'respuesta':'Usuario creado satisfactoriamente!', 'Id_usuario':user.id})
