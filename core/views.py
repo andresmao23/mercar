@@ -68,4 +68,13 @@ class Register(generics.CreateAPIView):
         client = Client.objects.create(user=user, cedula=cedula, name=name, first_lastname=first_lastname, second_lastname=second_lastname, phone=phone)
         client.save()
         # Información para crear el establecimiento
+        estableci = request.POST.get('establecimiento')
+        address = request.POST.get('address')
+        neighborhood = request.POST.get('neighborhood')
+        """print('************** DATOS DEL ESTABLECIMIENTO ************')
+        print(estableci)
+        print(address)
+        print(neighborhood)"""
+        store = Store.objects.create(client_id=client, name=estableci, address=address, neighborhood=neighborhood)
+        store.save()
         return Response({'respuesta':'Usuario creado satisfactoriamente!', 'Id_usuario':user.id})

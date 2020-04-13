@@ -23,7 +23,7 @@ class Client(models.Model):
 
 class Store(models.Model):
     client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, unique=True, null=False, blank=False, verbose_name='Nombre del establecimiento')
+    name = models.CharField(max_length=100, null=False, blank=False, verbose_name='Nombre del establecimiento')
     address = models.CharField(max_length=100, null=False, blank=False, verbose_name='Dirección')
     neighborhood = models.CharField(max_length=100, null=True, blank=True, verbose_name='Barrio')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
