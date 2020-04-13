@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, generics, status, permissions
 from rest_framework.response import Response
 from .serializers import ClientSerializer, ClientUserSerializer, ClientDetailSerializer, StoreSerializer
 from .models import Client, Store
@@ -48,4 +48,23 @@ class ClientUserList(generics.ListCreateAPIView):
             data = serializers.serialize('json', clients)
             return HttpResponse(data, content_type="application/json")
         return Response(status=status.HTTP_400_BAD_REQUEST)
-                
+
+class Register(generics.CreateAPIView):
+    def get(self, request, *args, **kwargs):
+        # Información para crear el usuario
+        username = request.GET.get('username')
+        email = request.GET.get('email')
+        password = request.GET.get('password')
+        print('************** ENTRANDO AL METODO ************')
+        print(username)
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        # Información para crear el cliete
+        cedula = request.GET.get('cedula')
+        name = request.GET.get('name')
+        first_lastname = request.GET.get('first_lastname')
+        second_lastname = request.GET.get('second_lastname')
+        phone = request.GET.get('phone')
+        client = Client.objects.create(user=user, cedula=cedula, name=name, first_lastname=first_lastname, second_lastname=second_lastname, phone=phone)
+        client.save()
+        return Response({'respuesta':'Usuario creado satisfactoriamente!', 'Id_usuario':user.id})

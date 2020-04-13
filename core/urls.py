@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ClientViewSet, ClientList, ClientUserList, ClientDetailList, StoreDetail
+from .views import ClientViewSet, ClientList, ClientUserList, ClientDetailList, StoreDetail, Register
 
 # Create a router and register our viewsets with it.
 #router = DefaultRouter()
@@ -14,4 +14,5 @@ urlpatterns = [
     #path('client-list/', ClientDetailList.as_view(), name='client-list'),
     path('client-detail/<int:id>', ClientDetailList.as_view(), name='client-detail'),
     path('store-detail/<int:client_id>', StoreDetail.as_view(), name='store-detail'),
+    path('register/', Register.as_view(), name='client-register'),
 ]
